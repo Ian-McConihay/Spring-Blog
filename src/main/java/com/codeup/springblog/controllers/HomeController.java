@@ -10,6 +10,5 @@ public class HomeController {
 	@GetMapping("/home")
 	public String welcome() {
 		return "home";
-
 	}
 }
