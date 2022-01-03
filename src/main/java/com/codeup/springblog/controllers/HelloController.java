@@ -29,6 +29,9 @@ public class HelloController {
 		return number + " plus one is " + (number + 1) + "!";
 	}
 
+
+
+
 	@GetMapping("/join")
 	public String showJoinForm() {
 		return "join";
