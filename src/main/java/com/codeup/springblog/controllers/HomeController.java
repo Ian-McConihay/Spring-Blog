@@ -10,5 +10,7 @@ public class HomeController {
 	@GetMapping("/home")
 	public String welcome() {
 		return "home";
+//		if the return does not match the html then you will get a white
+//		error
 	}
 }
