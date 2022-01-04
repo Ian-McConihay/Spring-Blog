@@ -2,37 +2,50 @@ package com.codeup.springblog.controllers;
 
 import com.codeup.springblog.models.Post;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
-//View all
 	public class PostController {
-	@GetMapping("/posts")
-	@ResponseBody
-	public String postIndex(@PathVariable String index){
-		return "posts";
+	private final PostRepository postDao;
+
+	public PostController(PostRepository postDao){
+		this.postDao = postDao;
 	}
 
-//View one
-//	@GetMapping("/posts/{id}")
-//	@ResponseBody
-//	public Post viewPostById(@PathVariable Post id){
-//		Post id = new Post("Hello", "This is a post.");
-//		return id;
+
+	@GetMapping("posts/index")
+	public String postIndex( Model model){
+		model.addAttribute("posts", postDao.findAll());
+		return "posts/index";
+	}
+
+
+//	@GetMapping("/posts/index")
+//	public String viewPostById(Model model){
+//		model.addAttribute("posts", postDao);
+//		return "posts/index";
 //	}
 
+
 	@GetMapping("/posts/create")
-	@ResponseBody
-	public String viewFormNewPost(@PathVariable String name){
-		return "create";
+	public String showCreateForm(Model model) {
+		model.addAttribute("post", new Post());
+		return "posts/create";
 	}
 
 	@PostMapping("/posts/create")
-	@ResponseBody
-	public String createPost(@PathVariable String name){
-		return "";
+	public String create(@RequestParam(name = "title") String title,
+						 @RequestParam(name = "body)") String body) {
+			Post post = new Post();
+			post.setTitle(title);
+			post.setBody(body);
+			return "posts/create";
+		}
+
+	@PostMapping("delete/{id}")
+	public String deletePost(@PathVariable Long id){
+		postDao.deleteById(id);
+	return "redirect:/index";
 	}
 }
