@@ -1,5 +1,6 @@
 package com.codeup.springblog.controllers;
 
+import com.codeup.springblog.models.Post;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
+//View all
 	public class PostController {
 	@GetMapping("/posts")
 	@ResponseBody
@@ -14,12 +16,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 		return "posts";
 	}
 
+//View one
+//	@GetMapping("/posts/{id}")
+//	@ResponseBody
+//	public Post viewPostById(@PathVariable Post id){
+//		Post id = new Post("Hello", "This is a post.");
+//		return id;
+//	}
 
-	@GetMapping("/posts/{id}")
-	@ResponseBody
-	public String viewPostById(@PathVariable String id){
-		return "";
-	}
 	@GetMapping("/posts/create")
 	@ResponseBody
 	public String viewFormNewPost(@PathVariable String name){
