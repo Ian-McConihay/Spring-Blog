@@ -1,21 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
 <!--th:object is the object selected the selected expression is the *{...}-->
-<form th:action="@{/posts/create}" th:method="post" th:object="${post}">
+<form action="/posts/create" method="post" >
 
     <label for="title">Title</label>
-    <input type="text" th:field="*{title}" id="title" placeholder="Title">
+    <input type="text" name="title" id="title" placeholder="Title">
 
     <label for="body">Body</label>
-    <input type="text" th:field="*{body}" id="body" placeholder="Body">
+    <input type="text" name="body" id="body" placeholder="Body">
 
-    <input type="submit" value="Add User">
-    <input type="submit" />
+    <button type="submit">Create Post</button>
 </form>
 </body>
 </html>

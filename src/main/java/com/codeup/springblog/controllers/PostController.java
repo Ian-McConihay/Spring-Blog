@@ -29,18 +29,17 @@ import org.springframework.web.bind.annotation.*;
 
 
 	@GetMapping("/posts/create")
-	public String showCreateForm(Model model) {
-		model.addAttribute("post", new Post());
+	public String showCreateForm() {
+//		model.addAttribute("post", new Post());
 		return "posts/create";
 	}
 
 	@PostMapping("/posts/create")
 	public String create(@RequestParam(name = "title") String title,
 						 @RequestParam(name = "body)") String body) {
-			Post post = new Post();
-			post.setTitle(title);
-			post.setBody(body);
-			return "posts/create";
+			Post post = new Post(title, body);
+			postDao.save(post);
+			return "redirect:/index";
 		}
 
 	@PostMapping("delete/{id}")
@@ -48,4 +47,18 @@ import org.springframework.web.bind.annotation.*;
 		postDao.deleteById(id);
 	return "redirect:/index";
 	}
+
+	@PostMapping("edit/{id}")
+	public String edit(@PathVariable long id) {
+
+		postDao.findPostById(id);
+		return "redirect:/post/" + id;
+	}
+
+
+
+
+
+
+
 }
