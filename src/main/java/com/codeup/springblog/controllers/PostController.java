@@ -14,55 +14,59 @@ import org.springframework.web.bind.annotation.*;
 	}
 
 
-	@GetMapping("posts/index")
+	@GetMapping("/posts")
 	public String postIndex( Model model){
 		model.addAttribute("posts", postDao.findAll());
 		return "posts/index";
 	}
 
 
-//	@GetMapping("/posts/index")
-//	public String viewPostById(Model model){
-//		model.addAttribute("posts", postDao);
-//		return "posts/index";
+	@GetMapping("/posts/{id}")
+	public String individualPost(@PathVariable int id){
+		return "posts/show";
+	}
+
+////	Create Post
+//	@GetMapping("/posts/create")
+//	public String showCreateForm() {
+////		model.addAttribute("post", new Post());
+//		return "posts/create";
 //	}
+//
+//	@PostMapping("/posts/create")
+//	public String create(@RequestParam(name = "title") String title,
+//						 @RequestParam(name = "body)") String body) {
+//			Post post = new Post(title, body);
+//			postDao.save(post);
+//			return "redirect:/index";
+//		}
 
-
-	@GetMapping("/posts/create")
-	public String showCreateForm() {
-//		model.addAttribute("post", new Post());
-		return "posts/create";
-	}
-
-	@PostMapping("/posts/create")
-	public String create(@RequestParam(name = "title") String title,
-						 @RequestParam(name = "body)") String body) {
-			Post post = new Post(title, body);
-			postDao.save(post);
-			return "redirect:/index";
-		}
-
-	@PostMapping("delete/{id}")
+//	Delete Post
+	@PostMapping("/posts/delete/{id}")
 	public String deletePost(@PathVariable Long id){
-		postDao.deleteById(id);
-	return "redirect:/index";
+		long deletePostId = id;
+		postDao.deleteById(deletePostId);
+	return "redirect:/posts";
 	}
 
-	@PostMapping("/posts/edit")
-	public String savePostedit(@RequestParam (name="postTitle") String postTitle,
-							   @RequestParam (name="postBody") String postBody,
-							   @RequestParam (name="postId") Long id) {
-		return "redirect:/posts";
-	}
-
+//	Edit Post
 	@PostMapping("/posts/edit/{id}")
 	public String edit(@PathVariable long id, Model model) {
 		Post editPost = postDao.getById(id);
-		model.addAttribute("postToEDit", editPost);
+		model.addAttribute("postToEdit", editPost);
 		return "posts/edit";
 	}
 
-
+	@PostMapping("/posts/edit")
+	public String savePostEdit(@RequestParam (name="postTitle") String postTitle,
+							   @RequestParam (name="postBody") String postBody,
+							   @RequestParam (name="postId") long id) {
+		Post postToEdit = postDao.getById(id);
+		postToEdit.setBody(postBody);
+		postToEdit.setTitle(postTitle);
+		postDao.save(postToEdit);
+		return "redirect:/posts";
+	}
 
 
 

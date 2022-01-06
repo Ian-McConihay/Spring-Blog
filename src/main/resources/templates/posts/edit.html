@@ -6,16 +6,18 @@
 </head>
 <body>
 <h1> Edit page</h1>
-<form th:action="posts/edit" method="post">
 
-    <label name="postTitle">Title of post</label>
+<form action="/posts/edit" method="post">
+    <label name="postTitle">Title of Post:</label>
     <input name="postTitle" th:value="${postToEdit.getTitle()}">
 
-    <label name="postBody">Body of post</label>
+    <label name="postBody">Body of Post:</label>
     <input name="postBody" th:value="${postToEdit.getBody()}">
 
-    <input name="postId" type="hidden" th:value="${postToEdit.getId}">
-    <button>Post Edit</button>
+    <input name="postId" type="hidden" th:value="${postToEdit.getId()}">
+
+    <button type="submit">Submit edit</button>
 </form>
+
 </body>
 </html>
