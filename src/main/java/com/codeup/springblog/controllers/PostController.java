@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 	public class PostController {
+//	private final UserRepository userDao;
 	private final PostRepository postDao;
 
 	public PostController(PostRepository postDao){
@@ -26,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
 		return "posts/show";
 	}
 
-////	Create Post
+//	Create Post
 //	@GetMapping("/posts/create")
 //	public String showCreateForm() {
 ////		model.addAttribute("post", new Post());
@@ -38,7 +39,7 @@ import org.springframework.web.bind.annotation.*;
 //						 @RequestParam(name = "body)") String body) {
 //			Post post = new Post(title, body);
 //			postDao.save(post);
-//			return "redirect:/index";
+//			return "redirect:/posts";
 //		}
 
 //	Delete Post
@@ -49,8 +50,9 @@ import org.springframework.web.bind.annotation.*;
 	return "redirect:/posts";
 	}
 
+
 //	Edit Post
-	@PostMapping("/posts/edit/{id}")
+	@GetMapping("/posts/edit/{id}")
 	public String edit(@PathVariable long id, Model model) {
 		Post editPost = postDao.getById(id);
 		model.addAttribute("postToEdit", editPost);

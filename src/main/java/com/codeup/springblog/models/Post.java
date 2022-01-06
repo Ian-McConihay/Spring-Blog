@@ -1,15 +1,21 @@
 package com.codeup.springblog.models;
 import javax.persistence.*;
 @Entity
+@Table(name = "posts")
 public class Post {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
 	@Column(nullable = false, length = 100)
 	private String title;
+
 	@Column(nullable = false)
 	private String body;
 
+	@ManyToOne
+	private User owner;
 
 	public Post(Long id, String title, String body) {
 		this.id = id;
