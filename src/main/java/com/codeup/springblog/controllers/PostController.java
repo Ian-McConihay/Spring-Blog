@@ -48,14 +48,19 @@ import org.springframework.web.bind.annotation.*;
 	return "redirect:/index";
 	}
 
-	@PostMapping("edit/{id}")
-	public String edit(@PathVariable long id) {
-
-		postDao.findPostById(id);
-		return "redirect:/post/" + id;
+	@PostMapping("/posts/edit")
+	public String savePostedit(@RequestParam (name="postTitle") String postTitle,
+							   @RequestParam (name="postBody") String postBody,
+							   @RequestParam (name="postId") Long id) {
+		return "redirect:/posts";
 	}
 
-
+	@PostMapping("/posts/edit/{id}")
+	public String edit(@PathVariable long id, Model model) {
+		Post editPost = postDao.getById(id);
+		model.addAttribute("postToEDit", editPost);
+		return "posts/edit";
+	}
 
 
 

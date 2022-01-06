@@ -13,10 +13,10 @@
     <p th:text="${post.getTitle()}" />
     <p th:text="${post.getBody()}" />
 
-    <form th:action="@{'/delete/' + ${post.id}}"  th:method="POST"th:object="${post}">
+    <form th:action="'posts/delete/' + ${post.getId()}"  th:method="POST">
     <button type="submit">Delete</button>
     </form>
-    <form th:action="@{'/edit/' + ${post.id}}" th:method="get"  th:object="${post}">
+    <form th:action="'posts/edit/' + ${post.getId()}" th:method="get" >
     <button type="submit">Edit</button>
     </form>
 
