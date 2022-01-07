@@ -32,19 +32,22 @@ import org.springframework.web.bind.annotation.*;
 	}
 
 //	Create Post
-//	@GetMapping("/posts/create")
-//	public String showCreateForm() {
-////		model.addAttribute("post", new Post());
-//		return "posts/create";
-//	}
-//
-//	@PostMapping("/posts/create")
-//	public String create(@RequestParam(name = "title") String title,
-//						 @RequestParam(name = "body)") String body) {
-//			Post post = new Post(title, body);
-//			postDao.save(post);
-//			return "redirect:/posts";
-//		}
+	@GetMapping("/posts/create")
+	public String showCreateForm() {
+//		model.addAttribute("post", new Post());
+		return "posts/create";
+	}
+
+	@PostMapping("/posts/create")
+	public String create(@RequestParam(name = "title") String title,
+						 @RequestParam(name = "body)") String body) {
+			Post post = new Post();
+			post.setTitle(title);
+			post.setBody(body);
+			userDao.getById(1L);
+			postDao.save(post);
+			return "redirect:/posts";
+		}
 
 //	Delete Post
 	@PostMapping("/posts/delete/{id}")
