@@ -7,10 +7,11 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 	public class PostController {
-//	private final UserRepository userDao;
+	private final UserRepository userDao;
 	private final PostRepository postDao;
 
-	public PostController(PostRepository postDao){
+	public PostController(UserRepository userDao, PostRepository postDao){
+		this.userDao = userDao;
 		this.postDao = postDao;
 	}
 
@@ -23,7 +24,10 @@ import org.springframework.web.bind.annotation.*;
 
 
 	@GetMapping("/posts/{id}")
-	public String individualPost(@PathVariable int id){
+	public String individualPost(@PathVariable Long id, Model model){
+		long showById = id;
+		model.addAttribute("posts", postDao.findAll());
+		userDao.findById(showById);
 		return "posts/show";
 	}
 
