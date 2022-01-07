@@ -21,8 +21,6 @@ import org.springframework.web.bind.annotation.*;
 		model.addAttribute("posts", postDao.findAll());
 		return "posts/index";
 	}
-
-
 	@GetMapping("/posts/{id}")
 	public String individualPost(@PathVariable Long id, Model model){
 		long showById = id;
@@ -31,23 +29,22 @@ import org.springframework.web.bind.annotation.*;
 		return "posts/show";
 	}
 
+
+
 //	Create Post
 	@GetMapping("/posts/create")
-	public String showCreateForm() {
-//		model.addAttribute("post", new Post());
+	public String showCreateForm(Model model) {
+		model.addAttribute("post", new Post());
 		return "posts/create";
 	}
-
 	@PostMapping("/posts/create")
-	public String create(@RequestParam(name = "title") String title,
-						 @RequestParam(name = "body)") String body) {
-			Post post = new Post();
-			post.setTitle(title);
-			post.setBody(body);
-			userDao.getById(1L);
+	public String create(@ModelAttribute Post post) {
+			post.setUser(userDao.getById(1L));
 			postDao.save(post);
 			return "redirect:/posts";
 		}
+
+
 
 //	Delete Post
 	@PostMapping("/posts/delete/{id}")
@@ -58,6 +55,7 @@ import org.springframework.web.bind.annotation.*;
 	}
 
 
+
 //	Edit Post
 	@GetMapping("/posts/edit/{id}")
 	public String edit(@PathVariable long id, Model model) {
@@ -65,7 +63,6 @@ import org.springframework.web.bind.annotation.*;
 		model.addAttribute("postToEdit", editPost);
 		return "posts/edit";
 	}
-
 	@PostMapping("/posts/edit")
 	public String savePostEdit(@RequestParam (name="postTitle") String postTitle,
 							   @RequestParam (name="postBody") String postBody,

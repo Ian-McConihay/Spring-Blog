@@ -3,7 +3,7 @@ import java.util.List;
 import javax.persistence.*;
 
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class User {
 
 	@Id
@@ -19,8 +19,8 @@ public class User {
 	@Column(nullable = false, length = 100)
 	private String password;
 
-	@OneToMany
-	private List<Post> post;
+	@OneToMany(mappedBy = "user")
+	private List<Post> usersPost;
 
 	public User(Long id, String username, String email, String password) {
 		this.id = id;
