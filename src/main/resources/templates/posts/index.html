@@ -1,11 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
+    <head th:replace="partials :: head">
     <title>Post Index</title>
 </head>
 <body>
 
+<nav th:replace="partials :: navbar"/>
 
 
 
@@ -22,5 +25,6 @@
     </form>
 
 </div>
+<footer th:replace="partials :: footer"/>
 </body>
 </html>
