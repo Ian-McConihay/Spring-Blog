@@ -4,15 +4,19 @@ import com.codeup.springblog.models.Post;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import com.codeup.springblog.services.EmailService;
 
 @Controller
 	public class PostController {
 	private final UserRepository userDao;
 	private final PostRepository postDao;
+	private final EmailService emailService;
 
-	public PostController(UserRepository userDao, PostRepository postDao){
+	public PostController(UserRepository userDao, PostRepository postDao, EmailService emailService){
 		this.userDao = userDao;
 		this.postDao = postDao;
+
+		this.emailService = emailService;
 	}
 
 
@@ -40,6 +44,8 @@ import org.springframework.web.bind.annotation.*;
 	@PostMapping("/posts/create")
 	public String create(@ModelAttribute Post post) {
 			post.setUser(userDao.getById(1L));
+			String emailSubject = post.getUser().getUsername() + ", Your post has been created";
+			emailService.prepareAndSend(post, emailSubject, "Congratulations, your post is available for viewing");
 			postDao.save(post);
 			return "redirect:/posts";
 		}
